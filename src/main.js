@@ -1,12 +1,16 @@
 import React from "react";
 import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
 import "./main.scss";
-
-console.log('Works like a charm');
+import store, { history } from "./store";
+import App from "../components/App";
 
 render((
-    <div className="test-class">
-        This works like a charm
-    </div>
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
+    </Provider>
 ),
     document.querySelector('.js-main'));
