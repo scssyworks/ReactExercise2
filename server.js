@@ -64,4 +64,8 @@ app.get("/issues/:user/:repo/:page", function (req, res) {
     })
 });
 
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
 app.listen(8800, () => console.log('Listening at port 8800'));

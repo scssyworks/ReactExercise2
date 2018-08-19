@@ -2,9 +2,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { addComment } from "../actions/CommentForm";
 import { next, prev } from "../actions/Paginator";
-import { submitForm } from "../actions/RepoForm";
 import { searchSubmit } from "../actions/Search";
 import { sortBy } from "../actions/SortBy";
+import { updateIssues, fetchIssues } from "../actions/issues";
 import Home from "./Home";
 
 const App = connect(function (state) {
@@ -17,9 +17,10 @@ const App = connect(function (state) {
         addComment,
         next,
         prev,
-        submitForm,
         searchSubmit,
-        sortBy
+        sortBy,
+        updateIssues,
+        fetchIssues
     }, dispatch);
 })(Home);
 

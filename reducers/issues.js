@@ -1,8 +1,12 @@
 // Issues reducer responsible for updating state for github issues
 
 function issues(state = {}, action) {
-    console.log(state, action);
-    return state;
+    switch (action.type) {
+        case "UPDATE_ISSUES":
+            return Object.assign({}, state, action.response);
+        default:
+            return state;
+    }
 }
 
 export default issues;
