@@ -24,7 +24,7 @@ class Issues extends Component {
         }
         return <div className="loading-el">Loading...</div>
     }
-    sendRequest = async ({ page, user, repo }) => {
+    sendRequest = ({ page, user, repo }) => {
         this.props.fetchIssues(user, repo, page);
     }
     componentDidMount() {
