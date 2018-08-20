@@ -1,6 +1,8 @@
+import { SUBMIT_SEARCH } from "../src/constants";
+
 function searchSubmit() {
     return {
-        type: "SEARCH_SUBMIT"
+        type: SUBMIT_SEARCH
     };
 }
 

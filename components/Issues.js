@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import IssueItem from "./IssueItem";
+import Loader from "./Loader";
+import IssuesList from "./IssuesList";
+import IssuesSummary from "./IssuesSummary";
 
 class Issues extends Component {
     renderList = () => {
@@ -9,23 +12,20 @@ class Issues extends Component {
         ));
     }
     renderDetails = () => {
-        if (this.props.issues && this.props.issues.total) {
+        const { total } = this.props.issues;
+        if (total) {
             return (
                 <React.Fragment>
                     <Search />
-                    <div className="issues-summary">
-                        <span>Total issues:</span><span>{this.props.issues.total}</span>
-                    </div>
-                    <div className="issues-list">
-                        {this.renderList()}
-                    </div>
+                    <IssuesSummary total={total} />
+                    <IssuesList renderList={this.renderList} />
                 </React.Fragment>
             );
         }
-        return <div className="loading-el">Loading...</div>
+        return <Loader />
     }
     sendRequest = ({ page, user, repo }) => {
-        this.props.fetchIssues(user, repo, page);
+        this.props.fetchIssues({ user, repo, page });
     }
     componentDidMount() {
         // Once the component has mounted send a request to server

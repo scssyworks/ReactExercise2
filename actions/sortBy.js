@@ -1,6 +1,8 @@
+import { SORT_ISSUES } from "../src/constants";
+
 function sortBy(param) {
     return {
-        type: "ISSUE_SORT",
+        type: SORT_ISSUES,
         param
     };
 }
