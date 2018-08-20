@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import RepoForm from "./RepoForm";
+import RepoForm from "../forms/RepoForm";
 import Issues from "./Issues";
 import IssueDetail from "./IssueDetail";
-import { history } from "../src/store";
+import { history } from "../../store/githubStore";
 
 class Home extends Component {
     render() {

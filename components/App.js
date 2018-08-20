@@ -5,7 +5,7 @@ import { next, prev } from "../actions/Paginator";
 import { searchSubmit } from "../actions/Search";
 import { sortBy } from "../actions/SortBy";
 import { updateIssues, fetchIssues } from "../actions/issues";
-import Home from "./Home";
+import Home from "./base/Home";
 
 const App = connect(function (state) {
     return {

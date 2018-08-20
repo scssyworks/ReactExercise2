@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Search from "./Search";
 import IssueItem from "./IssueItem";
 import Loader from "./Loader";
 import IssuesList from "./IssuesList";
 import IssuesSummary from "./IssuesSummary";
+import Search from "../forms/Search";
 
 class Issues extends Component {
     renderList = () => {
