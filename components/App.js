@@ -1,27 +1,27 @@
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { addComment } from "../actions/CommentForm";
-import { next, prev } from "../actions/Paginator";
-import { searchSubmit } from "../actions/Search";
-import { sortBy } from "../actions/SortBy";
-import { updateIssues, fetchIssues } from "../actions/issues";
-import Home from "./base/Home";
+import React, { Component } from "react";
+import { Route, Link, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../store/githubStore";
+import VisibleRepoForm from "./visible/VisibleRepoForm";
+import VisibleIssues from "./visible/VisibleIssues";
 
-const App = connect(function (state) {
-    return {
-        issues: state.issues,
-        comments: state.comments
-    };
-}, function (dispatch) {
-    return bindActionCreators({
-        addComment,
-        next,
-        prev,
-        searchSubmit,
-        sortBy,
-        updateIssues,
-        fetchIssues
-    }, dispatch);
-})(Home);
+class App extends Component {
+    render() {
+        return (
+            <ConnectedRouter history={history}>
+                <div>
+                    <h1>
+                        <Link to="/">Github Issues</Link>
+                    </h1>
+                    <Switch>
+                        <Route path="/" exact component={VisibleRepoForm} />
+                        <Route path="/list/:user/:repo/:page" component={VisibleIssues} />} />
+                        {/* <Route path="/detail/:user/:repo:/:issueId" component={IssueDetail} /> */}
+                    </Switch>
+                </div>
+            </ConnectedRouter>
+        );
+    }
+}
 
 export default App;

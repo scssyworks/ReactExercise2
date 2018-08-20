@@ -7,7 +7,11 @@ import rootReducer from "../reducers/rootReducer";
 const history = createBrowserHistory();
 
 const defaultState = {
-    issues: {},
+    username: "",
+    repository: "",
+    isFetched: false,
+    count: 0,
+    issues: [],
     comments: []
 };
 

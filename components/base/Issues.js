@@ -7,18 +7,18 @@ import Search from "../forms/Search";
 
 class Issues extends Component {
     renderList = () => {
-        const { list } = this.props.issues;
-        return list.map((issue, index) => (
+        const { issues } = this.props;
+        return issues.map((issue, index) => (
             <IssueItem {...issue} key={index} index={index} />
         ));
     }
     renderDetails = () => {
-        const { total } = this.props.issues;
-        if (total) {
+        const { count } = this.props;
+        if (count) {
             return (
                 <React.Fragment>
                     <Search />
-                    <IssuesSummary total={total} />
+                    <IssuesSummary total={count} />
                     <IssuesList renderList={this.renderList} />
                 </React.Fragment>
             );
