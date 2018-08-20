@@ -8,9 +8,10 @@ const FormControl = ({
     classList = [],
     name,
     placeholder,
-    ariaLabel
+    ariaLabel,
+    formGroupClassList = []
 }) => (
-        <div className="form-group">
+        <div className={["form-group"].concat(formGroupClassList).join(" ")}>
             {label ? <label htmlFor={name}>{label}:</label> : null}
             <input
                 onChange={onChangeMethod}

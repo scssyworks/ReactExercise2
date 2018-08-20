@@ -4,6 +4,8 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../store/githubStore";
 import VisibleRepoForm from "./visible/VisibleRepoForm";
 import VisibleIssues from "./visible/VisibleIssues";
+import IssueDetail from "./base/IssueDetail";
+import Error from "./errors/Error";
 
 class App extends Component {
     render() {
@@ -15,8 +17,9 @@ class App extends Component {
                     </h1>
                     <Switch>
                         <Route path="/" exact component={VisibleRepoForm} />
-                        <Route path="/list/:user/:repo/:page" component={VisibleIssues} />} />
-                        {/* <Route path="/detail/:user/:repo:/:issueId" component={IssueDetail} /> */}
+                        <Route path="/list/:user/:repo/:page" component={VisibleIssues} />
+                        <Route path="/detail/:user/:repo/:issueId" component={IssueDetail} />
+                        <Route component={Error} />
                     </Switch>
                 </div>
             </ConnectedRouter>

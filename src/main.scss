@@ -38,3 +38,25 @@
         color: #777;
     }
 }
+
+.issues-container {
+    padding: 0 20px;
+}
+
+.issue-info {
+    display: block;
+    padding: 10px 0;
+    &,
+    &:hover,
+    &:visited,
+    &:focus {
+        text-decoration: none;
+        color: #777;
+    }
+}
+
+.issue-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

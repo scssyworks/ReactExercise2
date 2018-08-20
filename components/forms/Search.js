@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import FormControl from "./FormControl";
+import SubmitControl from "./SubmitControl";
 
 class Search extends Component {
     submitOnSearch = (e) => {
@@ -7,10 +9,15 @@ class Search extends Component {
     render() {
         return (
             <form className="issue-search form-inline" onSubmit={this.submitOnSearch}>
-                <div className="form-group mr-2">
-                    <input type="search" id="issueSearch" className="form-control" placeholder="Search" />
-                </div>
-                <button type="submit" className="btn btn-primary">Search</button>
+                <FormControl
+                    formGroupClassList={["mg-0", "mr-4"]}
+                    type="search"
+                    id="issueSearch"
+                    placeholder="Search"
+                />
+                <SubmitControl
+                    innerJSX="Search"
+                />
             </form>
         );
     };
