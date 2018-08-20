@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
 import { UPDATE_ISSUES, UPDATE_COUNT, UPDATE_FETCHED_STATUS } from "../src/constants";
+import { updateUser, updateRepository } from "./repoForm";
 
 function updateIssues(list) {
     return {
@@ -31,9 +32,10 @@ function fetchIssues({ user, repo, page }) {
             dispatch(updateFetchedStatus(true));
             dispatch(updateIssues(response.list));
             dispatch(updateCount(response.total));
+            dispatch(updateUser(response.user));
+            dispatch(updateRepository(response.repository));
         } catch (e) {
             dispatch(updateFetchedStatus(false));
-            dispatch(updateIssues([]));
         }
     }
 }

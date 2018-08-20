@@ -6,6 +6,9 @@ import { fetchIssues } from "../../actions/issues";
 const VisibleIssues = connect(function (state) {
     return {
         count: state.count,
+        username: state.username,
+        repository: state.repository,
+        isFetched: state.isFetched,
         issues: state.issues
     }
 }, function (dispatch) {

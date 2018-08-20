@@ -7,14 +7,14 @@ import Search from "../forms/Search";
 
 class Issues extends Component {
     renderList = () => {
-        const { issues } = this.props;
+        const { issues, username, repository } = this.props;
         return issues.map((issue, index) => (
-            <IssueItem {...issue} key={index} index={index} />
+            <IssueItem {...issue} username={username} repository={repository} key={index} index={index} />
         ));
     }
     renderDetails = () => {
-        const { count } = this.props;
-        if (count) {
+        const { count, isFetched } = this.props;
+        if (isFetched) {
             return (
                 <React.Fragment>
                     <Search />
