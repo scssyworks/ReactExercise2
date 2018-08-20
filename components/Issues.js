@@ -7,7 +7,8 @@ import IssuesSummary from "./IssuesSummary";
 
 class Issues extends Component {
     renderList = () => {
-        return this.props.issues.list.map((issue, index) => (
+        const { list } = this.props.issues;
+        return list.map((issue, index) => (
             <IssueItem {...issue} key={index} index={index} />
         ));
     }

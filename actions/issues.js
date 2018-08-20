@@ -8,7 +8,7 @@ function updateIssues(response) {
     };
 }
 
-function fetchIssues(user, repo, page) {
+function fetchIssues({ user, repo, page }) {
     return async function (dispatch) {
         try {
             const raw = await fetch(`/issues/${user}/${repo}/${page}`);
