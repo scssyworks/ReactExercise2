@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import IssueItem from "./IssueItem";
 import Loader from "./Loader";
 import IssuesList from "./IssuesList";
 import IssuesSummary from "./IssuesSummary";
 import Search from "../forms/Search";
-import Paginator from "./Paginator";
+import VisiblePaginator from "../visible/VisiblePaginator";
 
-class Issues extends Component {
+class Issues extends PureComponent {
     renderList = () => {
         const { issues, username, repository } = this.props;
         return issues.map((issue, index) => (
@@ -14,14 +14,14 @@ class Issues extends Component {
         ));
     }
     renderDetails = () => {
-        const { count, isFetched, pageNumber, totalPages } = this.props;
+        const { count, isFetched } = this.props;
         if (isFetched) {
             return (
                 <React.Fragment>
                     <Search />
                     <IssuesSummary total={count} />
                     <IssuesList renderList={this.renderList} />
-                    <Paginator pageNumber={pageNumber} totalPages={totalPages} />
+                    <VisiblePaginator />
                 </React.Fragment>
             );
         }

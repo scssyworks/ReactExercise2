@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
-import { ConnectedRouter } from "connected-react-router";
-import { history } from "../store/githubStore";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import VisibleRepoForm from "./visible/VisibleRepoForm";
 import VisibleIssues from "./visible/VisibleIssues";
 import IssueDetail from "./base/IssueDetail";
@@ -10,7 +8,7 @@ import Error from "./errors/Error";
 class App extends Component {
     render() {
         return (
-            <ConnectedRouter history={history}>
+            <BrowserRouter>
                 <div>
                     <h1>
                         <Link to="/">GitHub Issues</Link>
@@ -22,7 +20,7 @@ class App extends Component {
                         <Route component={Error} />
                     </Switch>
                 </div>
-            </ConnectedRouter>
+            </BrowserRouter>
         );
     }
 }

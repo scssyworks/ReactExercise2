@@ -1,16 +1,14 @@
-import { PAGE_NEXT, PAGE_PREV } from "../src/constants";
+import { fetchIssues } from "./issues";
 
-function next(pageNumber) {
-    return {
-        type: PAGE_NEXT,
-        pageNumber
+function next(args) {
+    return function (dispatch) {
+        dispatch(fetchIssues(args));
     };
 };
 
-function prev(pageNumber) {
-    return {
-        type: PAGE_PREV,
-        pageNumber
+function prev(args) {
+    return function (dispatch) {
+        dispatch(fetchIssues(args));
     };
 }
 
