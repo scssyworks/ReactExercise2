@@ -31,7 +31,7 @@
 
 .issues-summary {
     font-size: 14px;
-    padding: 30px 0;
+    padding: 30px 0 15px;
     span+span {
         padding-left: 4px;
         color: #777;
@@ -42,6 +42,19 @@
     padding: 0 20px;
 }
 
+.issue-item {
+    position: relative;
+    padding: 5px 70px 5px 15px;
+    border-bottom: 1px solid #bababa;
+    &:last-child {
+        border: 0;
+    }
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #efefef;
+    }
+}
+
 .issue-info {
     display: block;
     padding: 10px 0;
@@ -50,12 +63,68 @@
     &:visited,
     &:focus {
         text-decoration: none;
-        color: #777;
+        color: #555;
     }
 }
 
 .issue-title {
+    line-height: 1.5;
+    font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.issues-list {
+    background-color: #fafafa;
+    border-radius: 3px;
+}
+
+.issue-props {
+    font-size: 13px;
+    line-height: 1.2;
+    color: #9d9d9d;
+    padding-left: 20px;
+}
+
+.issue-openedon,
+.issue-by {
+    margin-left: 5px;
+    span {
+        font-weight: bold;
+    }
+}
+
+.icon {
+    display: inline-block;
+    .octicon {
+        vertical-align: top;
+        margin-top: 5px;
+        margin-right: 5px;
+        path {
+            fill: currentColor;
+        }
+    }
+    &-open {
+        .octicon {
+            color: #28a745;
+        }
+    }
+    &-closed {
+        .octicon {
+            color: #cb2431;
+        }
+    }
+}
+
+.issue-comments {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.issue-commentcount {
+    font-size: 13px;
+    line-height: 1.2;
+    margin-left: 5px;
 }
