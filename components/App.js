@@ -13,7 +13,7 @@ class App extends Component {
             <ConnectedRouter history={history}>
                 <div>
                     <h1>
-                        <Link to="/">Github Issues</Link>
+                        <Link to="/">GitHub Issues</Link>
                     </h1>
                     <Switch>
                         <Route path="/" exact component={VisibleRepoForm} />

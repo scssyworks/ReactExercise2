@@ -1,4 +1,5 @@
 import React from "react";
+import InputControl from "./InputControl";
 
 const FormControl = ({
     label,
@@ -13,14 +14,14 @@ const FormControl = ({
 }) => (
         <div className={["form-group"].concat(formGroupClassList).join(" ")}>
             {label ? <label htmlFor={name}>{label}:</label> : null}
-            <input
-                onChange={onChangeMethod}
+            <InputControl
+                onChangeMethod={onChangeMethod}
                 type={type}
                 id={id}
-                className={["form-control"].concat(classList).join(" ")}
+                classList={classList}
                 name={name}
                 placeholder={placeholder}
-                aria-label={ariaLabel} />
+                ariaLabel={ariaLabel} />
         </div>
     );
 

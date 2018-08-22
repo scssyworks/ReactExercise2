@@ -1,18 +1,12 @@
 import React from "react";
+import ButtonControl from "./ButtonControl";
 
-const SubmitControl = ({
-    type = "submit",
-    classList = [],
-    id,
-    innerJSX = "Submit"
-}) => (
-        <button
-            type={type}
-            className={["btn", "btn-primary"].concat(classList).join(" ")}
-            role="button"
-            id={id}>
-            {innerJSX}
-        </button>
-    );
+const SubmitControl = (props) => {
+    const newProps = {
+        ...props,
+        type: "submit"
+    };
+    return <ButtonControl {...newProps} />;
+};
 
 export default SubmitControl;
