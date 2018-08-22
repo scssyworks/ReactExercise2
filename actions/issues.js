@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import { UPDATE_ISSUES, UPDATE_COUNT, UPDATE_FETCHED_STATUS } from "../src/constants";
+import { UPDATE_ISSUES, UPDATE_COUNT, UPDATE_FETCHED_STATUS, UPDATE_PAGE_NUMBER, UPDATE_TOTAL_PAGES } from "../src/constants";
 import { updateUser, updateRepository } from "./repoForm";
 
 function updateIssues(list) {
@@ -13,6 +13,20 @@ function updateCount(count) {
     return {
         type: UPDATE_COUNT,
         count
+    };
+}
+
+function updatePageNumber(pageNumber) {
+    return {
+        type: UPDATE_PAGE_NUMBER,
+        pageNumber
+    };
+}
+
+function updateTotalPageCount(totalPages) {
+    return {
+        type: UPDATE_TOTAL_PAGES,
+        totalPages
     };
 }
 
@@ -31,13 +45,15 @@ function fetchIssues({ user, repo, page }) {
             const response = await raw.json();
             dispatch(updateFetchedStatus(true));
             dispatch(updateIssues(response.list));
-            dispatch(updateCount(response.total));
+            dispatch(updateCount(+response.total));
             dispatch(updateUser(response.user));
             dispatch(updateRepository(response.repository));
+            dispatch(updatePageNumber(+response.currentPage));
+            dispatch(updateTotalPageCount(+response.pages));
         } catch (e) {
             dispatch(updateFetchedStatus(false));
         }
     }
 }
 
-export { fetchIssues, updateIssues, updateCount, updateFetchedStatus };
+export { fetchIssues, updateIssues, updateCount, updateFetchedStatus, updatePageNumber, updateTotalPageCount };

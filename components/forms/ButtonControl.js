@@ -2,17 +2,25 @@ import React from "react";
 
 const ButtonControl = ({
     type = "button",
-    classList = [],
+    classList = ["btn-primary"],
     id,
-    innerJSX = "Submit"
-}) => (
-        <button
-            type={type}
-            className={["btn", "btn-primary"].concat(classList).join(" ")}
-            role="button"
-            id={id}>
+    innerJSX = "Submit",
+    disabled = false
+}) => {
+    const btnProps = {
+        type,
+        className: ["btn"].concat(classList).join(" "),
+        id,
+        role: "button"
+    };
+    if (disabled) {
+        btnProps.disabled = "disabled";
+    }
+    return (
+        <button {...btnProps}>
             {innerJSX}
         </button>
     );
+};
 
 export default ButtonControl;

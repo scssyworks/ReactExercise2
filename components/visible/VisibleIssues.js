@@ -9,7 +9,9 @@ const VisibleIssues = connect(function (state) {
         username: state.username,
         repository: state.repository,
         isFetched: state.isFetched,
-        issues: state.issues
+        issues: state.issues,
+        pageNumber: state.pageNumber,
+        totalPages: state.totalPages
     }
 }, function (dispatch) {
     return bindActionCreators({

@@ -12,6 +12,8 @@ const defaultState = {
     repository: "",
     isFetched: false,
     count: 0,
+    pageNumber: 1,
+    totalPages: 0,
     issues: [],
     comments: []
 };

@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import IssuesList from "./IssuesList";
 import IssuesSummary from "./IssuesSummary";
 import Search from "../forms/Search";
+import Paginator from "./Paginator";
 
 class Issues extends Component {
     renderList = () => {
@@ -13,13 +14,14 @@ class Issues extends Component {
         ));
     }
     renderDetails = () => {
-        const { count, isFetched } = this.props;
+        const { count, isFetched, pageNumber, totalPages } = this.props;
         if (isFetched) {
             return (
                 <React.Fragment>
                     <Search />
                     <IssuesSummary total={count} />
                     <IssuesList renderList={this.renderList} />
+                    <Paginator pageNumber={pageNumber} totalPages={totalPages} />
                 </React.Fragment>
             );
         }

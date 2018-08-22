@@ -10,7 +10,7 @@ class Search extends Component {
         return (
             <div className="input-group">
                 <div className="input-group-prepend">
-                    <ButtonControl innerJSX="Filter" />
+                    <ButtonControl innerJSX="Sort By" />
                 </div>
                 <InputControl type="search" placeholder="Search" ariaLabel="Search issues" />
             </div>
