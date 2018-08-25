@@ -8,6 +8,131 @@ const app = express();
 const config = require('./webpack.dev');
 const compiler = webpack(config);
 
+const successObj = {
+    success: true,
+    message: "success"
+};
+const errorObj = {
+    success: false,
+    message: "Internal Server Error"
+}
+
+function _generateList(issue) {
+    const { login: user, url: userUrl } = issue.user;
+    const {
+        url,
+        number: issueId,
+        repository_url: repoUrl,
+        title,
+        state: status,
+        comments: commentCount,
+        created_at,
+        updated_at,
+        body: desc
+    } = issue;
+    return {
+        url,
+        routeUrl: `/issues/${issueId}`,
+        issueId,
+        repoUrl,
+        user,
+        userUrl,
+        title,
+        status,
+        iconClass: `icon-${status}`,
+        commentCount,
+        created: (new Date(created_at)).toLocaleString(),
+        updated: (new Date(updated_at)).toLocaleString(),
+        desc
+    };
+}
+
+function _getIssues(err, resp, body, req, res) {
+    if (!err && resp.statusCode === 200) {
+        try {
+            const rawData = JSON.parse(body);
+            const { page: currentPage, user, repo: repository } = req.params;
+            const {
+                total_count: total,
+                items
+            } = rawData;
+            res.json(Object.assign(successObj, {
+                total: +total,
+                pages: Math.ceil((+total) / 20),
+                currentPage,
+                user,
+                repository,
+                list: items.map(_generateList)
+            }));
+        } catch (e) {
+            res.status(500);
+            res.json(errorObj);
+        }
+    } else {
+        res.status(500);
+        res.json(errorObj);
+    }
+}
+
+function _getDetail(issueUri, err, resp, body, req, res) {
+    if (!err && resp.statusCode === 200) {
+        try {
+            const rawData = JSON.parse(body);
+            const { login: userId, html_url: userUrl } = rawData.user;
+            const { user: username, repo: repository, issueId } = req.params;
+            const {
+                title,
+                state: status,
+                comments: commentCount,
+                body: desc
+            } = rawData;
+            let comments = [];
+            // Fetch comments
+            request({
+                uri: `${issueUri}/comments`,
+                headers: {
+                    "User-Agent": "scssyworks"
+                }
+            }, (err, resp2, body2) => {
+                if (!err && resp2.statusCode === 200) {
+                    try {
+                        const rawData = JSON.parse(body2);
+                        comments = rawData.map((comment) => {
+                            const { html_url: commentUrl, created_at: created, updated_at: updated, body: desc } = comment;
+                            return {
+                                commentUrl,
+                                created: (new Date(created)).toLocaleString(),
+                                updated: (new Date(updated)).toLocaleString(),
+                                desc
+                            }
+                        });
+                        res.json(Object.assign(successObj, {
+                            username,
+                            repository,
+                            userId,
+                            userUrl,
+                            issueId,
+                            title,
+                            status,
+                            commentCount,
+                            desc,
+                            comments
+                        }));
+                    } catch (e) {
+                        res.json(errorObj);
+                    }
+                } else {
+                    res.json(errorObj);
+                }
+            });
+        } catch (e) {
+            res.json(errorObj);
+        }
+    } else {
+        res.json(errorObj);
+    }
+}
+
 app.use(webpackMiddleware(compiler, {
     publicPath: config.output.publicPath
 }));
@@ -16,52 +141,31 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.set("json spaces", 2);
 
-const GITHUB_URL = "https://api.github.com/search/issues"; // ?q=repo:Microsoft/vscode+type:issue&per_page=20;
+const GITHUB_URL = "https://api.github.com"; // ?q=repo:Microsoft/vscode+type:issue&per_page=20;
 
 app.get("/issues/:user/:repo/:page", function (req, res) {
+    const { user, repo, page } = req.params;
     request({
-        uri: `${GITHUB_URL}?q=repo:${req.params.user}/${req.params.repo}+type:issue&per_page=20&sort=created&order=desc&page=${req.params.page}`,
+        uri: `${GITHUB_URL}/search/issues?q=repo:${user}/${repo}+type:issue&per_page=20&sort=created&order=desc&page=${page}`,
+        headers: {
+            "User-Agent": "scssyworks"
+        }
+    }, (err, resp, body) => {
+        _getIssues(err, resp, body, req, res);
+    });
+});
+
+app.get("/issues/detail/:user/:repo/:issueId", function (req, res) {
+    const { user, repo, issueId } = req.params;
+    const issueUri = `${GITHUB_URL}/repos/${user}/${repo}/issues/${issueId}`;
+    request({
+        uri: issueUri,
         headers: {
             "User-Agent": "scssyworks"
         }
     }, function (err, resp, body) {
-        if (!err && resp.statusCode === 200) {
-            try {
-                const rawData = JSON.parse(body);
-                const postData = {};
-                postData.total = rawData.total_count;
-                postData.pages = Math.ceil((+postData.total) / 20);
-                postData.currentPage = req.params.page;
-                postData.user = req.params.user;
-                postData.repository = req.params.repo;
-                postData.list = rawData.items.map((issue) => {
-                    const issueObj = {};
-                    const { login, url } = issue.user;
-                    issueObj.url = issue.url;
-                    issueObj.routeUrl = `/issues/${issue.number}`;
-                    issueObj.issueId = issue.number;
-                    issueObj.repoUrl = issue.repository_url;
-                    issueObj.user = login;
-                    issueObj.userUrl = url;
-                    issueObj.title = issue.title;
-                    issueObj.status = issue.state;
-                    issueObj.iconClass = `icon-${issue.state}`;
-                    issueObj.commentCount = issue.comments;
-                    issueObj.created = (new Date(issue.created_at)).toLocaleString();
-                    issueObj.updated = (new Date(issue.updated_at)).toLocaleString();
-                    issueObj.desc = issue.body;
-                    return issueObj;
-                });
-                res.json(postData);
-            } catch (e) {
-                res.status(500);
-                res.json('Internal Server Error');
-            }
-        } else {
-            res.status(500);
-            res.json('Internal Server Error');
-        }
-    })
+        _getDetail(issueUri, err, resp, body, req, res);
+    });
 });
 
 app.get("*", function (req, res) {

@@ -11,7 +11,7 @@ const defaultState = {
     pageNumber: 1,
     totalPages: 0,
     issues: [],
-    comments: []
+    issueDetail: {}
 };
 
 const store = createStore(
