@@ -1,8 +1,8 @@
-import { UPDATE_FETCHED_STATUS } from "../src/constants";
+import { UPDATE_ISSUES } from "../src/constants";
 
-function isFetched(state = false, action) {
-    switch (action.type) {
-        case UPDATE_FETCHED_STATUS: return action.status;
+function isFetched(state = false, { type, newState }) {
+    switch (type) {
+        case UPDATE_ISSUES: return (typeof newState !== "boolean" || newState);
         default: return state;
     }
 }

@@ -21,11 +21,14 @@ class Issues extends PureComponent {
                     <Search />
                     <IssuesSummary total={count} />
                     <IssuesList renderList={this.renderList} />
-                    <VisiblePaginator />
                 </React.Fragment>
             );
         }
-        return <Loader />
+        return (
+            <React.Fragment>
+                <Loader />
+            </React.Fragment>
+        );
     }
     sendRequest = ({ page, user, repo }) => {
         this.props.fetchIssues({ user, repo, page });
@@ -34,11 +37,21 @@ class Issues extends PureComponent {
         // Once the component has mounted send a request to server
         this.sendRequest(this.props.match.params);
     }
+    componentDidUpdate(prevProps) {
+        const { pathname: currentPath } = this.props.location;
+        const { pathname: prevPath } = prevProps.location;
+        if (currentPath !== prevPath) {
+            console.log("Route change has triggered");
+        }
+    }
     render() {
         return (
-            <div className="issues-container">
-                {this.renderDetails()}
-            </div>
+            <React.Fragment>
+                <div className="issues-container">
+                    {this.renderDetails()}
+                </div>
+                <VisiblePaginator />
+            </React.Fragment>
         );
     }
 }

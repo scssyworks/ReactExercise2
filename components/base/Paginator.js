@@ -17,7 +17,7 @@ class Paginator extends Component {
                     <ButtonControl
                         classList={["btn-outline-secondary"]}
                         innerJSX="Next"
-                        disabled={pageNumber === totalPages}
+                        disabled={pageNumber >= totalPages}
                     />
                 </div>
             </div>

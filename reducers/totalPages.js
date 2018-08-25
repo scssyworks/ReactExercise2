@@ -1,8 +1,10 @@
-import { UPDATE_TOTAL_PAGES } from "../src/constants";
+import { UPDATE_ISSUES } from "../src/constants";
 
-function totalPages(state = 0, action) {
-    switch (action.type) {
-        case UPDATE_TOTAL_PAGES: return (action.totalPages >= 0 ? action.totalPages : state);
+function totalPages(state = 0, { type, response }) {
+    switch (type) {
+        case UPDATE_ISSUES:
+            const totalPages = +response.pages;
+            return (totalPages >= 0 ? totalPages : state);
         default: return state;
     }
 }

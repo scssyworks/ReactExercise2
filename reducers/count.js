@@ -1,8 +1,8 @@
-import { UPDATE_COUNT } from "../src/constants";
+import { UPDATE_ISSUES } from "../src/constants";
 
-function count(state = 0, action) {
-    switch (action.type) {
-        case UPDATE_COUNT: return action.count;
+function count(state = 0, { type, response }) {
+    switch (type) {
+        case UPDATE_ISSUES: return response.total;
         default: return state;
     }
 }
