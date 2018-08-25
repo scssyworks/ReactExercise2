@@ -18,6 +18,7 @@ function fetchIssueDetail({ user, repo, issueId }) {
             const response = await rawData.json();
             dispatch(updateIssueDetail(response));
         } catch (e) {
+            console.error(e);
             dispatch({
                 type: DISABLE_CONTROLS
             });

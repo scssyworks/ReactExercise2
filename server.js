@@ -51,7 +51,7 @@ function _getIssues(err, resp, body, req, res) {
     if (!err && resp.statusCode === 200) {
         try {
             const rawData = JSON.parse(body);
-            const { page: currentPage, user, repo: repository } = req.params;
+            const { page: currentPage, user: username, repo: repository } = req.params;
             const {
                 total_count: total,
                 items
@@ -60,7 +60,7 @@ function _getIssues(err, resp, body, req, res) {
                 total: +total,
                 pages: Math.ceil((+total) / 20),
                 currentPage,
-                user,
+                username,
                 repository,
                 list: items.map(_generateList)
             }));
@@ -84,7 +84,9 @@ function _getDetail(issueUri, err, resp, body, req, res) {
                 title,
                 state: status,
                 comments: commentCount,
-                body: desc
+                body: desc,
+                created_at: created,
+                updated_at: updated
             } = rawData;
             let comments = [];
             // Fetch comments
@@ -116,6 +118,8 @@ function _getDetail(issueUri, err, resp, body, req, res) {
                             status,
                             commentCount,
                             desc,
+                            created: (new Date(created)).toLocaleString(),
+                            updated: (new Date(updated)).toLocaleString(),
                             comments
                         }));
                     } catch (e) {

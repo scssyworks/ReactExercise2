@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loader from "./Loader";
+import StatusIcon from "../icons/StatusIcon";
 
 class IssueDetail extends Component {
     renderIssueDetail = () => {
@@ -7,7 +8,23 @@ class IssueDetail extends Component {
         if (!isFetched || !issueDetail.success) {
             return <Loader />
         }
-        return <div className="issue-detail-block">This issue issue detail block</div>;
+        const { title, issueId, desc, created, updated, userId, status } = issueDetail;
+        return (
+            <div className="issue-detail-block">
+                <div className="issue-detail-title">
+                    <span className="title">{title}</span>
+                    <span className="issue-id">#{issueId}</span>
+                </div>
+                <div className="issue-detail-summary">
+                    <span className={`status-info ${status}`}>
+                        <StatusIcon iconClass={`icon-${status}`} />
+                        <span>{status}</span>
+                    </span>
+                    <span className="created-on">Created on: <span>{created}</span></span>
+                    <span className="user">By: <span>{userId}</span></span>
+                </div>
+            </div>
+        );
     }
     render() {
         return (
@@ -17,7 +34,6 @@ class IssueDetail extends Component {
         );
     }
     componentDidMount() {
-        console.log("MOUNTED!!!");
         this.props.fetchIssueDetail(this.props.match.params);
     }
 }

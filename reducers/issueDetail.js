@@ -3,7 +3,7 @@ import { UPDATE_ISSUE_DETAILS } from "../src/constants";
 function issueDetail(state = {}, { type, response }) {
     switch (type) {
         case UPDATE_ISSUE_DETAILS:
-            const { userId, userUrl, issueId, title, status, commentCount, desc, comments, success } = response;
+            const { userId, userUrl, issueId, title, status, commentCount, desc, comments, created, updated, success } = response;
             return {
                 success,
                 userId,
@@ -13,6 +13,8 @@ function issueDetail(state = {}, { type, response }) {
                 issueId,
                 commentCount,
                 desc,
+                created,
+                updated,
                 comments
             };
         default: return state;

@@ -11,11 +11,12 @@
         margin-bottom: 20px;
         a {
             display: inline-block;
+            &,
             &:hover,
             &:focus,
             &:visited {
                 text-decoration: none;
-                color: #007bff;
+                color: #555;
             }
         }
     }
@@ -137,4 +138,55 @@
 .issues-pagination {
     margin-top: 20px;
     padding: 0 20px;
+}
+
+.issue-detail-block {
+    background-color: #fafafa;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.issue-detail-title {
+    .title {
+        font-weight: bold;
+    }
+    .issue-id {
+        margin-left: 5px;
+        color: #999;
+    }
+}
+
+.status-info {
+    padding: 4px 8px;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 13px;
+    &.open {
+        background-color: #28a745;
+    }
+    &.closed {
+        background-color: #cb2431;
+    }
+    .icon-open,
+    .icon-closed {
+        .octicon {
+            margin-top: 1px;
+            margin-right: 6px;
+            color: #fff;
+        }
+    }
+}
+
+.issue-detail-summary {
+    .created-on,
+    .user {
+        font-size: 13px;
+        margin-left: 5px;
+        color: #999;
+        span {
+            font-weight: bold;
+        }
+    }
 }

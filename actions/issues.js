@@ -18,6 +18,7 @@ function fetchIssues({ user, repo, page }) {
             const response = await raw.json();
             dispatch(updateIssues(response));
         } catch (e) {
+            console.error(e);
             dispatch({
                 type: DISABLE_CONTROLS
             });
