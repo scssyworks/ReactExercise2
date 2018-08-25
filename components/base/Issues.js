@@ -14,12 +14,12 @@ class Issues extends PureComponent {
         ));
     }
     renderDetails = () => {
-        const { count, isFetched } = this.props;
+        const { count, isFetched, pageNumber, totalPages } = this.props;
         if (isFetched) {
             return (
                 <React.Fragment>
                     <Search />
-                    <IssuesSummary total={count} />
+                    <IssuesSummary total={count} pageNumber={pageNumber} totalPages={totalPages} />
                     <IssuesList renderList={this.renderList} />
                 </React.Fragment>
             );
@@ -41,7 +41,7 @@ class Issues extends PureComponent {
         const { pathname: currentPath } = this.props.location;
         const { pathname: prevPath } = prevProps.location;
         if (currentPath !== prevPath) {
-            console.log("Route change has triggered");
+            this.sendRequest(this.props.match.params);
         }
     }
     render() {
@@ -50,7 +50,7 @@ class Issues extends PureComponent {
                 <div className="issues-container">
                     {this.renderDetails()}
                 </div>
-                <VisiblePaginator />
+                <VisiblePaginator history={this.props.history} />
             </React.Fragment>
         );
     }

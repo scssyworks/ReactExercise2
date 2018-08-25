@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import { UPDATE_ISSUES } from "../src/constants";
+import { UPDATE_ISSUES, DISABLE_CONTROLS } from "../src/constants";
 
 function updateIssues(response) {
     return {
@@ -11,6 +11,9 @@ function updateIssues(response) {
 function fetchIssues({ user, repo, page }) {
     return async function (dispatch) {
         try {
+            dispatch({
+                type: DISABLE_CONTROLS
+            });
             const raw = await fetch(`/issues/${user}/${repo}/${page}`);
             const response = await raw.json();
             dispatch(updateIssues(response));

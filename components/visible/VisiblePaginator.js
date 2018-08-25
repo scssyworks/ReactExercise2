@@ -1,18 +1,15 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Paginator from "../base/Paginator";
-import { prev, next } from "../../actions/paginator";
 
 const VisiblePaginator = connect(function (state) {
     return {
         pageNumber: state.pageNumber,
-        totalPages: state.totalPages
+        totalPages: state.totalPages,
+        isFetched: state.isFetched,
+        username: state.username,
+        repository: state.repository
     };
-}, function (dispatch) {
-    return bindActionCreators({
-        prev,
-        next
-    }, dispatch);
 })(Paginator);
 
 export default VisiblePaginator;

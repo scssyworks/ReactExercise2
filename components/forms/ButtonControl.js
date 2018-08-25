@@ -5,13 +5,15 @@ const ButtonControl = ({
     classList = ["btn-primary"],
     id,
     innerJSX = "Submit",
+    onClickMethod,
     disabled = false
 }) => {
     const btnProps = {
         type,
         className: ["btn"].concat(classList).join(" "),
         id,
-        role: "button"
+        role: "button",
+        onClick: onClickMethod
     };
     if (disabled) {
         btnProps.disabled = "disabled";
