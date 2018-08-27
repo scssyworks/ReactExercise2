@@ -11,7 +11,7 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <h1>
-                        <Link to="/">GitHub Issues</Link>
+                        <Link to="/"><span className="github">GitHub</span> Issues</Link>
                     </h1>
                     <Switch>
                         <Route path="/" exact component={VisibleRepoForm} />
