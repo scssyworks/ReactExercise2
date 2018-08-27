@@ -1,0 +1,21 @@
+.icon {
+    display: inline-block;
+    .octicon {
+        vertical-align: top;
+        margin-top: 5px;
+        margin-right: 5px;
+        path {
+            fill: currentColor;
+        }
+    }
+    &-open {
+        .octicon {
+            color: #28a745;
+        }
+    }
+    &-closed {
+        .octicon {
+            color: #cb2431;
+        }
+    }
+}

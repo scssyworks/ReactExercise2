@@ -4,7 +4,7 @@ function isFetched(state = false, { type, response }) {
     switch (type) {
         case UPDATE_ISSUES:
         case UPDATE_ISSUE_DETAILS:
-            return response.success;
+            return (response.success || false);
         case DISABLE_CONTROLS: return false;
         default: return state;
     }

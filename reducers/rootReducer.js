@@ -7,6 +7,7 @@ import username from "./username";
 import pageNumber from "./pageNumber";
 import totalPages from "./totalPages";
 import issueDetail from "./issueDetail";
+import message from "./message";
 
 const rootReducer = combineReducers({
     issues,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     isFetched,
     pageNumber,
     totalPages,
-    issueDetail
+    issueDetail,
+    message
 });
 
 export default rootReducer;

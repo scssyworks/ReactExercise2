@@ -6,7 +6,7 @@ function repository(state = "", action) {
         case UPDATE_ISSUES:
         case UPDATE_ISSUE_DETAILS:
             const { repository } = action.response;
-            return repository;
+            return (repository || "");
         default: return state;
     }
 }

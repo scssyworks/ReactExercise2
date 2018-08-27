@@ -7,6 +7,7 @@ const defaultState = {
     username: "",
     repository: "",
     isFetched: false,
+    message: "",
     count: 0,
     pageNumber: 1,
     totalPages: 0,

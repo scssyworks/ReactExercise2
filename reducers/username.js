@@ -6,7 +6,7 @@ function username(state = "", action) {
         case UPDATE_ISSUES:
         case UPDATE_ISSUE_DETAILS:
             const { username } = action.response;
-            return username;
+            return (username || "");
         default: return state;
     }
 }

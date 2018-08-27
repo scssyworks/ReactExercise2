@@ -1,0 +1,23 @@
+.c-main {
+    padding: 50px 0;
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        a {
+            display: inline-block;
+            &,
+            &:hover,
+            &:focus,
+            &:visited {
+                text-decoration: none;
+                color: #555;
+            }
+        }
+    }
+}
+
+@import "./icons";
+@import "./repoForm";
+@import "./issues";
+@import "./paginator";
+@import "./issueDetail";
