@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Loader from "./Loader";
 import StatusIcon from "../icons/StatusIcon";
+import Comments from "./Comments";
 
 class IssueDetail extends Component {
     renderIssueDetail = () => {
@@ -8,7 +9,9 @@ class IssueDetail extends Component {
         if (!isFetched || !issueDetail.success) {
             return <Loader />
         }
-        const { title, issueId, desc, created, updated, userId, status } = issueDetail;
+        const { title, issueId, status, comments } = issueDetail;
+        const { userId } = comments.find(comment => comment.def);
+
         return (
             <div className="issue-detail-block">
                 <div className="issue-detail-title">
@@ -20,9 +23,9 @@ class IssueDetail extends Component {
                         <StatusIcon iconClass={`icon-${status}`} />
                         <span>{status}</span>
                     </span>
-                    <span className="created-on">Created on: <span>{created}</span></span>
-                    <span className="user">By: <span>{userId}</span></span>
+                    <span className="user">Created by: <span>{userId}</span></span>
                 </div>
+                <Comments comments={comments} />
             </div>
         );
     }

@@ -78,7 +78,7 @@ function _getDetail(issueUri, err, resp, body, req, res) {
     if (!err && resp.statusCode === 200) {
         try {
             const rawData = JSON.parse(body);
-            const { login: userId, html_url: userUrl } = rawData.user;
+            const { login: userId } = rawData.user;
             const { user: username, repo: repository, issueId } = req.params;
             const {
                 title,
@@ -100,26 +100,30 @@ function _getDetail(issueUri, err, resp, body, req, res) {
                     try {
                         const rawData = JSON.parse(body2);
                         comments = rawData.map((comment) => {
-                            const { html_url: commentUrl, created_at: created, updated_at: updated, body: desc } = comment;
+                            const { login: userId } = comment.user;
+                            const { created_at: created, updated_at: updated, body: desc } = comment;
                             return {
-                                commentUrl,
+                                def: false,
                                 created: (new Date(created)).toLocaleString(),
                                 updated: (new Date(updated)).toLocaleString(),
+                                userId,
                                 desc
                             }
                         });
+                        comments = [{
+                            def: true,
+                            created: (new Date(created)).toLocaleString(),
+                            updated: (new Date(updated)).toLocaleString(),
+                            userId,
+                            desc
+                        }, ...comments];
                         res.json(Object.assign(successObj, {
                             username,
                             repository,
-                            userId,
-                            userUrl,
                             issueId,
                             title,
                             status,
                             commentCount,
-                            desc,
-                            created: (new Date(created)).toLocaleString(),
-                            updated: (new Date(updated)).toLocaleString(),
                             comments
                         }));
                     } catch (e) {
